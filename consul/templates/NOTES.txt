@@ -1,22 +1,7 @@
-
-Thank you for installing HashiCorp Consul!
-
-Now that you have deployed Consul, you should look over the docs on using 
-Consul with Kubernetes available here: 
-
-https://www.consul.io/docs/platform/k8s/index.html
-
-
-Your release is named {{ .Release.Name }}.
-
-To learn more about the release, run:
-
-  $ helm status {{ .Release.Name }}
-  $ helm get all {{ .Release.Name }}
-
-
-{{- if (and .Values.global.acls.manageSystemACLs (gt (len .Values.server.extraConfig) 3)) }}
-Warning: Defining server extraConfig potentially disrupts the automatic ACL
-         bootstrapping required settings. This may cause future issues if
-         there are conflicts.
-{{- end }}
+1. Watch all cluster members come up.
+  $ kubectl get pods --namespace={{ .Release.Namespace }} -w
+2. Test cluster health using Helm test.
+  $ helm test {{ template "consul.fullname" . }}
+3. (Optional) Manually confirm consul cluster is healthy.
+  $ CONSUL_POD=$(kubectl get pods -l='release={{ template "consul.fullname" . }}' --output=jsonpath={.items[0].metadata.name})
+  $ kubectl exec $CONSUL_POD consul members --namespace={{ .Release.Namespace }} | grep server
