@@ -40,8 +40,6 @@ spec:
           volumeMounts:
             - mountPath: /usr/local/etc/redis.conf
               name: redis-config
-          command:
-            -
           resources:
       {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
