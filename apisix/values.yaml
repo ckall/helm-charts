@@ -79,7 +79,7 @@ gateway:
     servicePort: 80
     containerPort: 9080
   tls:
-    enabled: false
+    enabled: true
     servicePort: 443
     containerPort: 9443
     http2:
