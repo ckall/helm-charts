@@ -39,6 +39,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 6379
+  password: charles
 
 ingress:
   enabled: false

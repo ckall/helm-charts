@@ -38,7 +38,7 @@ spec:
               containerPort: 6379
               protocol: TCP
           volumeMounts:
-            - mountPath: /usr/local/etc/redis.conf
+            - mountPath: /usr/local/etc
               name: redis-config
           resources:
       {{- toYaml .Values.resources | nindent 12 }}

@@ -162,5 +162,5 @@ data:
     # syslog-facility local0
 
     ######################### 密码设置
-    requirepass charles
+    requirepass {{ .Values.service.password }}
 
