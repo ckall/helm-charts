@@ -101,8 +101,8 @@ resources:
 protocolHttp: false
 
 service:
-  type: ClusterIP
-  # Dashboard service port
+  type: NodePort
+  # Dashboard service port ClusterIP
   externalPort: 443
 
   ## LoadBalancerSourcesRange is a list of allowed CIDR values, which are combined with ServicePort to
