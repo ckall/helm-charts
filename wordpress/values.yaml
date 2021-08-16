@@ -54,11 +54,11 @@ ingress:
     kubernetes.io/ingress.class: apisix
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ckall.local
+    - host: ckall.com
       paths:
         - path: /
           pathType: ImplementationSpecific
-    - host: www.ckall.local
+    - host: www.ckall.com
       paths:
         - path: /
           pathType: ImplementationSpecific
