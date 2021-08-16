@@ -51,7 +51,7 @@ ingress:
   enabled: true
   className: ""
   annotations:
-    kubernetes.io/ingress.class: kong
+    kubernetes.io/ingress.class: apisix
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: ckall.local
