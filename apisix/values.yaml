@@ -40,7 +40,7 @@ apisix:
     #   - ALL
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
-  # runAsUser: 1000
+    # runAsUser: 1000
 
   resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
@@ -52,7 +52,7 @@ apisix:
     #   memory: 128Mi
     # requests:
     #   cpu: 100m
-  #   memory: 128Mi
+    #   memory: 128Mi
 
   nodeSelector: {}
   tolerations: []
@@ -67,11 +67,11 @@ fullnameOverride: ""
 
 
 gateway:
-  type: LoadBalancer
-  # If you want to keep the client source IP, you can set this to Local.LoadBalancer
+  type: NodePort
+#  type: LoadBalancer
+  # If you want to keep the client source IP, you can set this to Local.
   # ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   externalTrafficPolicy: Cluster
-  loadBalancerIP: 127.0.0.1
   # type: LoadBalancer
   # annotations:
   #   service.beta.kubernetes.io/aws-load-balancer-type: nlb
@@ -79,10 +79,12 @@ gateway:
     enabled: true
     servicePort: 80
     containerPort: 9080
+    nodePort: 80
   tls:
     enabled: true
     servicePort: 443
     containerPort: 9443
+    nodePort: 443
     http2:
       enabled: true
   stream:  # L4 proxy (TCP/UDP)
@@ -93,7 +95,7 @@ gateway:
     enabled: false
     annotations: {}
       # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+      # kubernetes.io/tls-acme: "true"
     hosts:
       - host: apisix.local
         paths: []
@@ -212,7 +214,7 @@ etcd:
   service:
     port: 2379
 
-  replicaCount: 1
+  replicaCount: 3
 
 
 dashboard:
