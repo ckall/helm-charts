@@ -76,7 +76,7 @@ config:
     expireTime: 3600
     users:
       - username: admin
-        password: admin
+        password: cheng
 #ClusterIP
 service:
   type: NodePort
