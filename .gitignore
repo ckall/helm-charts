@@ -8,7 +8,7 @@ biligo/
 .vscode/
 
 *.swp
-
+xthk-live-api-pub/*
 # temp ignore
 *.log
 *.cache
