@@ -10,7 +10,7 @@ metadata:
   annotations:
     service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: http
     port: {{ .Values.HttpPort }}
