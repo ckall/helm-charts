@@ -64,3 +64,7 @@ Create the name of the service account to use
 {{- define "mysql.config.fullname" -}}
  {{ template "mysql.fullname" . }}-mysql-config
 {{- end }}
+
+{{- define "mysql.pvc.fullname" -}}
+ {{ template "mysql.fullname" . }}-pvc
+{{- end }}

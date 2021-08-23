@@ -12,7 +12,7 @@ image:
 
 nfs:
   server: localhost
-  path: /var/kube
+  path: /
   mountOptions:
 
 # For creating the StorageClass automatically:

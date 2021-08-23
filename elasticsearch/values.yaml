@@ -101,7 +101,7 @@ rbac:
   serviceAccountName: ""
 
 podSecurityPolicy:
-  create: false
+  create: true
   name: ""
   spec:
     privileged: true

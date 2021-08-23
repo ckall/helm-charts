@@ -638,4 +638,4 @@ disasterRecovery:
     size: 2Gi
     ## storageClassName, choose a storageClassName with ReadWriteMany support
     ##
-    storageClassName: nfs
+    storageClassName: gluster-heketi

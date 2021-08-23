@@ -67,8 +67,8 @@ spec:
       {{- end }}
       volumes:
         - name: mysql-data
-          hostPath:
-            path: "/var/kube/mysql"
+          persistentVolumeClaim:
+            claimName: {{ template  "mysql.pvc.fullname" . }}
         - name: mysql-config
           configMap:
             name: {{ template "mysql.config.fullname" . }}

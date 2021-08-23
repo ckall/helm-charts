@@ -4,6 +4,14 @@
 
 replicaCount: 1
 
+pvc:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "5Gi"
+  storageClassName: "gluster-heketi"
+
 image:
   repository: redis
   pullPolicy: IfNotPresent

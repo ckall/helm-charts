@@ -65,3 +65,7 @@ Create the name of the service account to use
 {{- define "redis.config.fullname" -}}
  {{ template "redis.fullname" . }}-redis-config
 {{- end }}
+
+{{- define "redis.pvc.fullname" -}}
+ {{ template "redis.fullname" . }}-pvc
+{{- end }}
