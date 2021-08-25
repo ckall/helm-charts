@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{- include "redis.pvc.fullname" }}
+  name: {{ template  "mysql.pvc.fullname" . }}
   namespace: {{ .Release.Namespace }}
 
 spec:
