@@ -60,10 +60,10 @@ config:
     etcd:
       # Supports defining multiple etcd host addresses for an etcd cluster
       endpoints:
-        - apisix-etcd:2379
+        - etcd:2379
       # Etcd basic auth info
-      username: ~
-      password: ~
+      username: root
+      password: etcd123456
     log:
       errorLog:
         level: warn
