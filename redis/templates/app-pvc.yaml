@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   name: {{- include "redis.pvc.fullname" }}
   namespace: {{ .Release.Namespace }}
+
 spec:
   accessModes:
     - ReadWriteMany
