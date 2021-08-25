@@ -164,11 +164,11 @@ data:
         {{- range $value := .Values.etcd.host }}
         - "{{ $value }}"             # multiple etcd address
         {{- end}}
+      user: root
+      password: etcd123456
     {{- end }}
       prefix: {{ .Values.etcd.prefix | quote }}     # apisix configurations prefix
       timeout: {{ .Values.etcd.timeout }}   # 30 seconds
-      user: root
-      password: etcd123456
 
     {{- if .Values.plugins }}
     plugins:                          # plugin list
