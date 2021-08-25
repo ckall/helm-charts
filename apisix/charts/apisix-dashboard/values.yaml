@@ -75,8 +75,8 @@ config:
     secert: secert
     expireTime: 3600
     users:
-      - username: cheng
-        password: 19990205
+      - username: admin
+        password: cheng
 
 service:
   type: NodePort
