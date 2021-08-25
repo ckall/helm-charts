@@ -595,7 +595,7 @@ startFromSnapshot:
 ## recover itself from the last available snapshot.
 ##
 disasterRecovery:
-  enabled: false
+  enabled: true
   cronjob:
     ## Schedule in Cron format to save snapshots
     ## See https://en.wikipedia.org/wiki/Cron
