@@ -10,7 +10,7 @@ pvc:
   resources:
     requests:
       storage: "5Gi"
-  storageClassName: "gluster-heketi"
+  storageClassName: "nfs-client"
 
 image:
   repository: redis

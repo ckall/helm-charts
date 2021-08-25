@@ -36,6 +36,9 @@ priorityClassName: ""
 
 Storage: "1Gi"
 
+
+StorageClass: nfs-client
+
 ## Needed for 0.8.0 and later IF all consul containers are spun up
 ## on the same machine. Without this they all generate the same
 ## host id.
@@ -161,4 +164,4 @@ lifecycle:
      - "sleep 60"
 forceIpv6: false
 
-StorageClass: "gluster-heketi"
+#StorageClass: "hostpath"

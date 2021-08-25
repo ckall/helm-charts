@@ -11,8 +11,8 @@ image:
   pullPolicy: IfNotPresent
 
 nfs:
-  server: localhost
-  path: /
+  server: 192.168.16.4
+  path: /data/nfs/k8s
   mountOptions:
 
 # For creating the StorageClass automatically:

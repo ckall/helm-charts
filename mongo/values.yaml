@@ -14,6 +14,15 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+pvc:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: "5Gi"
+  storageClassName: "nfs-client"
+
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
