@@ -60,10 +60,10 @@ config:
     etcd:
       # Supports defining multiple etcd host addresses for an etcd cluster
       endpoints:
-        - etcd:2379
+        - apisix-etcd:2379
       # Etcd basic auth info
-      username: root
-      password: etcd123456
+      username: ~
+      password: ~
     log:
       errorLog:
         level: warn
@@ -75,9 +75,9 @@ config:
     secert: secert
     expireTime: 3600
     users:
-      - username: admin
-        password: cheng
-#ClusterIP
+      - username: cheng
+        password: 19990205
+
 service:
   type: NodePort
   port: 80

@@ -33,7 +33,7 @@ apisix:
 
   podAnnotations: {}
   podSecurityContext: {}
-  # fsGroup: 2000
+    # fsGroup: 2000
   securityContext: {}
     # capabilities:
     #   drop:
@@ -68,7 +68,6 @@ fullnameOverride: ""
 
 gateway:
   type: NodePort
-#  type: LoadBalancer
   # If you want to keep the client source IP, you can set this to Local.
   # ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
   externalTrafficPolicy: Cluster
@@ -79,12 +78,10 @@ gateway:
     enabled: true
     servicePort: 80
     containerPort: 9080
-    nodePort: 80
   tls:
-    enabled: true
+    enabled: false
     servicePort: 443
     containerPort: 9443
-    nodePort: 443
     http2:
       enabled: true
   stream:  # L4 proxy (TCP/UDP)
@@ -201,7 +198,7 @@ etcd:
   # install etcd(v3) by default, set false if do not want to install etcd(v3) together
   enabled: true
   host:
-    - http://etcd:2379  # host or ip e.g. http://172.20.128.89:2379
+    - http://etcd.host:2379  # host or ip e.g. http://172.20.128.89:2379
   prefix: "/apisix"
   timeout: 30
 
@@ -214,7 +211,7 @@ etcd:
   service:
     port: 2379
 
-  replicaCount: 1
+  replicaCount: 3
 
 
 dashboard:
