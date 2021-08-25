@@ -17,5 +17,5 @@ spec:
   resources:
     requests:
       storage: {{ .Values.disasterRecovery.pvc.size | quote }}
-  storageClassName: {{ .Values.disasterRecovery.pvc.storageClassName | quote }}
+  storageClassName: "{{ .Values.disasterRecovery.pvc.storageClassName | quote }}"
 {{- end -}}
