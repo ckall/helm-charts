@@ -231,7 +231,7 @@ alertmanager:
       ## Subdirectory of alertmanager data Persistent Volume to mount
       ## Useful if the volume's root directory is not empty
       ##
-      subPath: ""
+    subPath: ""
 
   emptyDir:
     ## alertmanager emptyDir volume size limit
