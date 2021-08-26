@@ -28,6 +28,7 @@ spec:
       serviceAccountName: {{ include "mysql.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Always
       containers:
         - name: {{ .Chart.Name }}
           securityContext:

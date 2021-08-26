@@ -27,6 +27,7 @@ spec:
       serviceAccountName: {{ include "mongo.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Always
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -61,5 +62,5 @@ spec:
   {{- end }}
       volumes:
         - name: mongo-data
-          hostPath:
-            path: /Users/kuncheng/dockerServer/data/mongo
+          persistentVolumeClaim:
+            claimName: {{ template  "mongo.pvc.fullname" . }}

@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "elasticsearch.fullname" . }}
+  labels:
+  {{- include "elasticsearch.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+  {{- include "elasticsearch.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "elasticsearch.fullname" . }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+    {{- include "elasticsearch.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      serviceAccountName: {{ include "elasticsearch.serviceAccountName" . }}
+      securityContext:
+      {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      hostname: es-master
+      restartPolicy: Always
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 9200
+              protocol: TCP
+            - name: http2
+              containerPort: 9300
+              protocol: TCP
+{{/*          livenessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: http*/}}
+{{/*          readinessProbe:*/}}
+{{/*            httpGet:*/}}
+{{/*              path: /*/}}
+{{/*              port: http*/}}
+          env:
+            {{ if  .Values.env.password }}
+            - name: ELASTIC_PASSWORD
+              value: {{  .Values.env.password  }}
+              {{ end }}
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx512m
+            - name: TIMEZONE
+              value: Asia/ShangHai
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+              name: es-config
+              subPath: elasticsearch.yml
+            - mountPath: /usr/share/elasticsearch/data
+              name: es-master-data
+{{/*            - mountPath: /usr/share/elasticsearch/logs*/}}
+{{/*              name: es-master-claim2*/}}
+{{/*            - mountPath: /usr/share/elasticsearch/config/certs*/}}
+{{/*              name: es-master-claim3*/}}
+          resources:
+      {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+  {{- toYaml . | nindent 8 }}
+  {{- end }}
+      volumes:
+        - name: es-config
+          configMap:
+            name: {{ include "elasticsearch.config.fullname" . }}
+            items:
+              - key: app-config
+                path: elasticsearch.yml
+        - name:  es-master-data
+          persistentVolumeClaim:
+            claimName: {{ template  "elasticsearch.pvc.fullname" . }}
