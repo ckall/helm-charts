@@ -1,25 +1,13 @@
+{{- if .Values.kibanaConfig }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "kibana.config.fullname" . }}
-  labels:
-    app: {{ template "kibana.config.fullname" . }}
-    chart: {{ template "kibana.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+  name: {{ template "kibana.fullname" . }}-config
+  labels: {{ include "kibana.labels" . | nindent 4 }}
 data:
-  app-config: |
-    # 服务端口
-    server.port: 5601
-    # 服务IP
-    server.host: "0.0.0.0"
-    # ES
-    elasticsearch.hosts: ["{{ .Values.env.elasticsearch.hosts }}"]
-    # 汉化
-    i18n.locale: "zh-CN"
-
-    xpack.monitoring.ui.container.elasticsearch.enabled: true
-  {{  if .Values.env.password  }}
-    elasticsearch.username: "{{ .Values.env.elasticsearch.username }}"
-    elasticsearch.password: "{{ .Values.env.elasticsearch.password }}"
-  {{  end  }}
+{{- range $path, $config := .Values.kibanaConfig }}
+  {{ $path }}: |
+{{ tpl $config $ | indent 4 -}}
+{{- end -}}
+{{- end -}}
