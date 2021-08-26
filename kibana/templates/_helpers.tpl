@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+
+{{- define "kibana.config.fullname" -}}
+ {{ template "kibana.fullname" . }}-config
+{{- end }}
+
+{{- define "kibana.pvc.fullname" -}}
+ {{ template "kibana.fullname" . }}-pvc
+{{- end }}

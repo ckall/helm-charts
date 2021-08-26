@@ -14,12 +14,12 @@ data:
     # 服务IP
     server.host: "0.0.0.0"
     # ES
-    elasticsearch.hosts: [{{ printf "http://%s" .Values.env.ESHost }}]
+    elasticsearch.hosts: [ "{{ .Values.env.elasticsearch.hosts }}"]
     # 汉化
     i18n.locale: "zh-CN"
 
     xpack.monitoring.ui.container.elasticsearch.enabled: true
-  {{  if .Values.env.password  }}
-    elasticsearch.username: "elastic"
+    {{  if .Values.env.password  }}
+    elasticsearch.username: elastic
     elasticsearch.password: {{ .Values.env.password }}
   {{  end  }}
