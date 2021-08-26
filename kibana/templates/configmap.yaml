@@ -19,7 +19,8 @@ data:
     i18n.locale: "zh-CN"
 
     xpack.monitoring.ui.container.elasticsearch.enabled: true
-    {{  if .Values.env.password  }}
-    elasticsearch.username: {{ .Values.env.elasticsearch.username }}
-    elasticsearch.password: {{ .Values.env.elasticsearch.password }}
+    xpack.security.encryptionKey: fdjfsdahsgd
+  {{  if .Values.env.password  }}
+    elasticsearch.username: "{{ .Values.env.elasticsearch.username }}"
+    elasticsearch.password: "{{ .Values.env.elasticsearch.password }}"
   {{  end  }}
