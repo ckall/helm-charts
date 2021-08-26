@@ -88,5 +88,7 @@ spec:
               - key: app-config
                 path: elasticsearch.yml
         - name:  es-master-data
-          persistentVolumeClaim:
-            claimName: {{ template  "elasticsearch.pvc.fullname" . }}
+          emptyDir: {}
+
+{{/*          persistentVolumeClaim:*/}}
+{{/*            claimName: {{ template  "elasticsearch.pvc.fullname" . }}*/}}
