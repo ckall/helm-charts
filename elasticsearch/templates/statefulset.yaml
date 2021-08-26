@@ -29,7 +29,6 @@ spec:
       serviceAccountName: {{ include "elasticsearch.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      hostname: es-master
       restartPolicy: Always
       containers:
         - name: {{ .Chart.Name }}

@@ -83,6 +83,6 @@ affinity: {}
 
 env:
   elasticsearch:
-    hosts: http://es-master:9200
-#    username: elastic
-#    password: chalres
+    hosts: http://elasticsearch:9200
+    username: elastic
+    password: chalres
