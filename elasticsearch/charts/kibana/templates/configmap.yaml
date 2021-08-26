@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "kibana.config.fullname" . }}
+  labels:
+    app: {{ template "kibana.config.fullname" . }}
+    chart: {{ template "kibana.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  app-config: |
+    # 服务端口
+    server.port: 5601
+    # 服务IP
+    server.host: "0.0.0.0"
+    # ES
+    elasticsearch.hosts: [{{ printf "http://%s" .Values.env.ESHost }}]
+    # 汉化
+    i18n.locale: "zh-CN"
+
+    xpack.monitoring.ui.container.elasticsearch.enabled: true
+  {{  if .Values.env.password  }}
+    elasticsearch.username: "elastic"
+    elasticsearch.password: {{ .Values.env.password }}
+  {{  end  }}
