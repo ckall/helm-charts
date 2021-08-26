@@ -20,6 +20,6 @@ data:
 
     xpack.monitoring.ui.container.elasticsearch.enabled: true
     {{  if .Values.env.password  }}
-    elasticsearch.username: elastic
-    elasticsearch.password: {{ .Values.env.password }}
+    elasticsearch.username: {{ .Values.env.elasticsearch.username }}
+    elasticsearch.password: {{ .Values.env.elasticsearch.password }}
   {{  end  }}

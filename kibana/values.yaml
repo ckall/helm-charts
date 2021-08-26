@@ -82,6 +82,7 @@ tolerations: []
 affinity: {}
 
 env:
-  password: chalres
   elasticsearch:
     hosts: http://es-master:9200
+    username: elastic
+    password: chalres
