@@ -89,5 +89,5 @@ pvc:
       storage: "5Gi"
   storageClassName: "nfs-client"
 
-env:
-  password: chalres
+env: {}
+#  password: chalres

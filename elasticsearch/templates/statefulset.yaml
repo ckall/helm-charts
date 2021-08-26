@@ -67,10 +67,6 @@ spec:
               subPath: elasticsearch.yml
             - mountPath: /usr/share/elasticsearch/data
               name: es-master-data
-{{/*            - mountPath: /usr/share/elasticsearch/logs*/}}
-{{/*              name: es-master-claim2*/}}
-{{/*            - mountPath: /usr/share/elasticsearch/config/certs*/}}
-{{/*              name: es-master-claim3*/}}
           resources:
       {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
