@@ -47,10 +47,10 @@ podAnnotations:
 
 resources:
   requests:
-    cpu: "1.5Gi"
+#    cpu: "1.5Gi"
     memory: "512Mi"
   limits:
-    cpu: "1.5Gi"
+#    cpu: "1.5Gi"
     memory: "512Mi"
 
 protocol: http
