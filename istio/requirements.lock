@@ -1,0 +1,42 @@
+dependencies:
+- name: sidecarInjectorWebhook
+  repository: file://_charts/sidecarInjectorWebhook
+  version: 1.1.0
+- name: security
+  repository: file://_charts/security
+  version: 1.1.0
+- name: ingress
+  repository: file://_charts/ingress
+  version: 1.1.0
+- name: gateways
+  repository: file://_charts/gateways
+  version: 1.1.0
+- name: mixer
+  repository: file://_charts/mixer
+  version: 1.1.0
+- name: pilot
+  repository: file://_charts/pilot
+  version: 1.1.0
+- name: grafana
+  repository: file://_charts/grafana
+  version: 1.1.0
+- name: prometheus
+  repository: file://_charts/prometheus
+  version: 1.1.0
+- name: servicegraph
+  repository: file://_charts/servicegraph
+  version: 1.1.0
+- name: tracing
+  repository: file://_charts/tracing
+  version: 1.1.0
+- name: galley
+  repository: file://_charts/galley
+  version: 1.1.0
+- name: kiali
+  repository: file://_charts/kiali
+  version: 1.1.0
+- name: certmanager
+  repository: file://_charts/certmanager
+  version: 1.1.0
+digest: sha256:6a7274648fdf3148b1c0a637e1d7ac3a51b844e9802356a60ddc297e55671e81
+generated: "2020-12-19T04:02:21.476594608Z"
