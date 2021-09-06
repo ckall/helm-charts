@@ -21,8 +21,6 @@ spec:
     spec:
       template:
         spec:
-          failedJobsHistoryLimit: 5
-          successfulJobsHistoryLimit: 5
           {{- if .Values.dependencies.image.imagePullSecrets }}
           imagePullSecrets:
             - name: {{ .Values.dependencies.image.imagePullSecrets }}
