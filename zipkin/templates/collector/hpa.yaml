@@ -1,0 +1,17 @@
+{{- if .Values.collector.hpa.enabled -}}
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "zipkin.collector.fullname" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "zipkin.collector.fullname" . }}
+  minReplicas: {{ .Values.collector.hpa.minReplicas }}
+  maxReplicas: {{ .Values.collector.hpa.maxReplicas }}
+  metrics:
+    {{- range .Values.collector.hpa.metrics -}}
+    - {{ . | toYaml }}
+    {{- end -}}
+{{- end -}}

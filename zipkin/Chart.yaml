@@ -1,0 +1,24 @@
+apiVersion: v2
+appVersion: 2.21.0
+description: |-
+  Zipkin is a distributed tracing system. It helps gather timing
+  data needed to troubleshoot latency problems in service architectures.
+  Features include both the collection and lookup of this data.
+home: https://zipkin.io
+icon: https://zipkin.io/public/img/logo_png/zipkin_vertical_grey_gb.png
+keywords:
+- tracing
+- observability
+- open-source
+- opentracing
+- zipkin
+maintainers:
+- email: carlosjuangp@gmail.com
+  name: carlosjgp
+name: zipkin
+sources:
+- https://github.com/openzipkin/zipkin/
+- https://github.com/carlosjgp/zipkin-chart
+- https://github.com/carlosjgp/open-charts
+type: application
+version: 0.2.0

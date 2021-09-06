@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "zipkin.collector.fullname" . }}
+  labels:
+    {{- include "zipkin.collector.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.collector.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "zipkin.collector.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "zipkin.collector.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "zipkin.collector.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}-collector
+          image: "{{ .Values.collector.image.repository }}:{{ .Values.collector.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.collector.image.pullPolicy }}
+          env:
+            - name: QUERY_PORT
+              value: {{ .Values.collector.service.port | quote }}
+            {{- range .Values.collector.env }}
+            - {{ . | toYaml }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.collector.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.collector.resources | nindent 12 }}
+      {{- with .Values.collector.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.collector.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.collector.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
