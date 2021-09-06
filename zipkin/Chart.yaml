@@ -4,10 +4,10 @@ description: A Helm chart for Kubernetes
 home: https://zipkin.io/
 icon: https://zipkin.io/public/img/zipkin-logo-200x119.jpg
 keywords:
-- zipkin
-- tracing
+  - zipkin
+  - tracing
 maintainers:
-- email: 29ygq@sina.com
-  name: Chinge Yang
+  - email: 29ygq@sina.com
+    name: Chinge Yang
 name: zipkin
 version: 1.0.1

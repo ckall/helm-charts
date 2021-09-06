@@ -77,7 +77,7 @@ spec:
             - name: STORAGE_TYPE
               value: elasticsearch
             - name : ES_HOSTS
-              value: {{ template "zipkin.fullname" . }}-elasticsearch-client:9200
+              value: elasticsearch-1630897973:9200
           resources:
 {{ toYaml .Values.resources | indent 12 }}
           ports:

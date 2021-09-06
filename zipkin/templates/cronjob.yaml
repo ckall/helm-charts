@@ -37,7 +37,7 @@ spec:
             - name: STORAGE_TYPE
               value: elasticsearch
             - name : ES_HOSTS
-              value: {{ template "zipkin.fullname" . }}-elasticsearch-client:9200
+              value: elasticsearch-1630897973:9200
             name: {{ .Chart.Name }}-dependencies
             imagePullPolicy: {{ .Values.dependencies.image.pullPolicy }}
             image: {{ .Values.dependencies.image.repository }}:{{ .Values.dependencies.image.tag }}
