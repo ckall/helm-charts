@@ -647,7 +647,7 @@ ingressController:
 postgresql:
   ## @param postgresql.enabled Deploy the PostgreSQL sub-chart
   ##
-  enabled: true
+  enabled: false
   ## @param postgresql.usePasswordFile Mount the PostgreSQL secret as a file
   ##
   usePasswordFile: false
@@ -656,13 +656,13 @@ postgresql:
   external:
     ## @param postgresql.external.host Host of an external PostgreSQL installation
     ##
-    host: ""
+    host: "postgresql:5432"
     ## @param postgresql.external.user Username of the external PostgreSQL installation
     ##
-    user: ""
+    user: "postgresql"
     ## @param postgresql.external.password Password of the external PostgreSQL installation
     ##
-    password: ""
+    password: "postgres123"
   ## @param postgresql.existingSecret Use an existing secret file with the PostgreSQL password (can be used with the bundled chart or with an existing installation)
   ##
   existingSecret: ""
