@@ -89,6 +89,10 @@ gateway:
     nodePort: 443
     http2:
       enabled: true
+  control:
+    enabled: true
+    servicePort: 9090
+    containerPort: 9090
   stream:  # L4 proxy (TCP/UDP)
     enabled: false
     tcp: []
@@ -111,7 +115,7 @@ admin:
   # Enable Admin API
   enabled: true
   # admin service type
-  type: ClusterIP
+  type: NodePort
   # loadBalancerIP: a.b.c.d
   # loadBalancerSourceRanges:
   #   - "143.231.0.0/16"
@@ -173,6 +177,7 @@ plugins:
   - wolf-rbac
   - zipkin
   - traffic-split
+  - ck-auth
 stream_plugins:
   - mqtt-proxy
 

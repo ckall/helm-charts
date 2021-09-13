@@ -52,6 +52,10 @@ spec:
     nodePort: {{ .Values.admin.nodePort }}
   {{- end }}
     protocol: TCP
+  - name: control-http
+    port: {{ .Values.gateway.control.servicePort }}
+    targetPort:  control-http
+    protocol: TCP
   selector:
     {{- include "apisix.selectorLabels" . | nindent 4 }}
 {{ end }}

@@ -103,6 +103,11 @@ data:
         - name: "viewer"
           key: {{ .Values.admin.credentials.viewer }}
           role: viewer
+      # control mode create
+      enable_control: {{ .Values.gateway.control.enabled }}
+      control:
+        ip: "0.0.0.0"
+        port: {{ .Values.gateway.control.containerPort }}
       router:
         http: 'radixtree_uri'         # radixtree_uri: match route by uri(base on radixtree)
                                       # radixtree_host_uri: match route by host + uri(base on radixtree)
