@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-{{- if .Values.apisix.enabled }}
+  {{- if .Values.apisix.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -75,20 +75,20 @@ data:
       #    cache_levels: "1:2"
 
       allow_admin:                  # http://nginx.org/en/docs/http/ngx_http_access_module.html#allow
-      {{- if .Values.admin.allow.ipList }}
-      {{- range $ips := .Values.admin.allow.ipList }}
+    {{- if .Values.admin.allow.ipList }}
+    {{- range $ips := .Values.admin.allow.ipList }}
         - {{ $ips }}
-      {{- end }}
-      {{- else }}
+    {{- end }}
+    {{- else }}
         - 0.0.0.0/0
-      {{- end}}
-      {{- if or (index .Values "ingress-controller" "enabled") .Values.dashboard.enabled  }}
+    {{- end}}
+    {{- if or (index .Values "ingress-controller" "enabled") .Values.dashboard.enabled  }}
         - 0.0.0.0/0
-      {{- end}}
+    {{- end}}
       #   - "::/64"
-      {{- if .Values.admin.enabled }}
+    {{- if .Values.admin.enabled }}
       port_admin: {{ .Values.admin.port }}
-      {{- end }}
+    {{- end }}
 
       # Default token when use API to call for Admin API.
       # *NOTE*: Highly recommended to modify this value to protect APISIX's Admin API.
@@ -103,25 +103,59 @@ data:
         - name: "viewer"
           key: {{ .Values.admin.credentials.viewer }}
           role: viewer
+      # control mode create
+      enable_control: {{ .Values.gateway.control.enabled }}
+      control:
+        ip: "0.0.0.0"
+        port: {{ .Values.gateway.control.containerPort }}
+    {{ if .Values.consul.enabled }}
+      discovery:
+        # consul 探活
+        consul_kv:
+          servers:
+    {{  range  .Values.consul.address  }}
+            - "{{ . }}"
+    {{ end }}
+          prefix: "upstreams"
+          skip_keys:                    # if you need to skip special keys
+            - "upstreams/unused_api/"
+          timeout:
+            connect: 1000               # default 2000 ms
+            read: 1000                  # default 2000 ms
+            wait: 60                    # default 60 sec
+          weight: 1                     # default 1
+          fetch_interval: 5             # default 3 sec, only take effect for keepalive: false way
+          keepalive: true               # default true, use the long pull way to query consul servers
+          default_server:               # you can define default server when missing hit
+            host: "127.0.0.1"
+            port: 20999
+            metadata:
+              fail_timeout: 1           # default 1 ms
+              weight: 1                 # default 1
+              max_fails: 1              # default 1
+          dump:                         # if you need, when registered nodes updated can dump into file
+            path: "logs/consul_kv.dump"
+            expire: 2592000      # unit sec, here is 30 day
+    {{ end }}
       router:
         http: 'radixtree_uri'         # radixtree_uri: match route by uri(base on radixtree)
                                       # radixtree_host_uri: match route by host + uri(base on radixtree)
         ssl: 'radixtree_sni'          # radixtree_sni: match route by SNI(base on radixtree)
-      {{- if and .Values.gateway.stream.enabled (or (gt (len .Values.gateway.stream.tcp) 0) (gt (len .Values.gateway.stream.udp) 0)) }}
+    {{- if and .Values.gateway.stream.enabled (or (gt (len .Values.gateway.stream.tcp) 0) (gt (len .Values.gateway.stream.udp) 0)) }}
       stream_proxy:                 # TCP/UDP proxy
-        {{- if gt (len .Values.gateway.stream.tcp) 0 }}
+    {{- if gt (len .Values.gateway.stream.tcp) 0 }}
         tcp:                        # TCP proxy port list
-          {{- range .Values.gateway.stream.tcp }}
+    {{- range .Values.gateway.stream.tcp }}
           - {{ . }}
-          {{- end }}
-        {{- end }}
-        {{- if gt (len .Values.gateway.stream.udp) 0 }}
+    {{- end }}
+    {{- end }}
+    {{- if gt (len .Values.gateway.stream.udp) 0 }}
         udp:                        # UDP proxy port list
-          {{- range .Values.gateway.stream.udp }}
+    {{- range .Values.gateway.stream.udp }}
           - {{ . }}
-          {{- end }}
-        {{- end }}
-      {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
       # dns_resolver:
       #   {{- range $resolver := .Values.dns.resolvers }}
       #   - {{ $resolver }}
@@ -161,9 +195,9 @@ data:
         - "http://{{ .Release.Name }}-etcd.{{ .Release.Namespace }}.svc.{{ .Values.etcd.clusterDomain }}:{{ .Values.etcd.service.port }}"
     {{- else }}
       host:                                 # it's possible to define multiple etcd hosts addresses of the same etcd cluster.
-        {{- range $value := .Values.etcd.host }}
+    {{- range $value := .Values.etcd.host }}
         - "{{ $value }}"             # multiple etcd address
-        {{- end}}
+    {{- end}}
     {{- end }}
       prefix: {{ .Values.etcd.prefix | quote }}     # apisix configurations prefix
       timeout: {{ .Values.etcd.timeout }}   # 30 seconds
@@ -178,4 +212,4 @@ data:
     {{- range $plugin := .Values.stream_plugins }}
       - {{ $plugin }}
     {{- end }}
-{{- end }}
+    {{- end }}

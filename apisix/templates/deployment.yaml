@@ -58,6 +58,9 @@ spec:
             - name: tls
               containerPort: {{ .Values.gateway.tls.containerPort }}
               protocol: TCP
+            - name: control-http
+              containerPort: {{ .Values.gateway.control.containerPort }}
+              protocol: TCP
             {{- if .Values.admin.enabled }}
             - name: admin
               containerPort: {{ .Values.admin.port }}

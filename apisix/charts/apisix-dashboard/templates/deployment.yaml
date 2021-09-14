@@ -20,35 +20,36 @@ metadata:
   name: {{ include "apisix-dashboard.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "apisix-dashboard.labels" . | nindent 4 }}
+  {{- include "apisix-dashboard.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "apisix-dashboard.selectorLabels" . | nindent 6 }}
+  {{- include "apisix-dashboard.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- with .Values.podAnnotations }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+      {{- with .Values.podAnnotations }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        {{- include "apisix-dashboard.selectorLabels" . | nindent 8 }}
+    {{- include "apisix-dashboard.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
+      restartPolicy: Always
       serviceAccountName: {{ include "apisix-dashboard.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
@@ -64,24 +65,36 @@ spec:
               path: /ping
               port: http
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /usr/local/apisix-dashboard/conf/conf.yaml
               name: apisix-dashboard-config
               subPath: conf.yaml
+            - name:   apisix-dashboard-schema
+              mountPath: /usr/local/apisix-dashboard/conf/schema.json
+              subPath: schema.json
       volumes:
-        - configMap:
+        - name: apisix-dashboard-config
+          configMap:
             name: {{ include "apisix-dashboard.fullname" . }}
-          name: apisix-dashboard-config
+            items:
+              - key: conf.yaml
+                path: conf.yaml
+        - name: apisix-dashboard-schema
+          configMap:
+            name: {{ include "apisix-dashboard.fullname" . }}
+            items:
+              - key: schema.json
+                path: schema.json
       {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+      {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+  {{- toYaml . | nindent 8 }}
+  {{- end }}
