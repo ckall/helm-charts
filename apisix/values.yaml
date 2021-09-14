@@ -230,3 +230,8 @@ dashboard:
 
 ingress-controller:
   enabled: false
+
+consul:
+  enabled: true
+  address:
+    - http://180.76.53.25:42347
