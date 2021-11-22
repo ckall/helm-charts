@@ -68,7 +68,7 @@ fullnameOverride: ""
 
 gateway:
   # 网关类型 LoadBalancer
-  type: NodePort
+  type: LoadBalancer
   # 网关ip
   # loadBalancerIP: localhost
   # If you want to keep the client source IP, you can set this to Local.
