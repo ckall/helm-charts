@@ -11,7 +11,7 @@ image:
   pullPolicy: IfNotPresent
 
 nfs:
-  server: 192.168.16.4
+  server: 172.20.157.192
   path: /data/nfs/k8s
   mountOptions:
 

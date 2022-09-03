@@ -7,12 +7,12 @@ metadata:
     nfs-client-provisioner: {{ template "nfs-client-provisioner.fullname" . }}
 spec:
   capacity:
-    storage: 10Mi
+    storage: 50Gi
   volumeMode: Filesystem
   accessModes:
     - {{ .Values.storageClass.accessModes }}
   persistentVolumeReclaimPolicy: {{ .Values.storageClass.reclaimPolicy }}
-  storageClassName: ""
+  storageClassName: "nfs-client"
   {{- if .Values.nfs.mountOptions }}
   mountOptions:
     {{- range .Values.nfs.mountOptions }}
