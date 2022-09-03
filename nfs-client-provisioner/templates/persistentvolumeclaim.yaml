@@ -7,7 +7,7 @@ spec:
   accessModes:
     - {{ .Values.storageClass.accessModes }}
   volumeMode: Filesystem
-  storageClassName: ""
+  storageClassName: {{ .Values.storageClass.name }}
   selector:
     matchLabels:
       nfs-client-provisioner: {{ template "nfs-client-provisioner.fullname" . }}
