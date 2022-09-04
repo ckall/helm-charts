@@ -8,7 +8,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  mysql-config: |
+  config: |
     [mysqld]
     datadir=/var/lib/mysql
     socket=/var/lib/mysql/mysql.sock

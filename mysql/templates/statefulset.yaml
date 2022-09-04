@@ -51,7 +51,7 @@ spec:
             - mountPath: /var/lib/mysql
               name: mysql-data
             - mountPath: /etc/my.cnf
-              name: mysql-config
+              name: config
           resources:
       {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -70,9 +70,9 @@ spec:
         - name: mysql-data
           persistentVolumeClaim:
             claimName: {{ template  "mysql.pvc.fullname" . }}
-        - name: mysql-config
+        - name: config
           configMap:
             name: {{ template "mysql.config.fullname" . }}
             items:
-              - key: mysql-config
+              - key: config
                 path: my.cnf
