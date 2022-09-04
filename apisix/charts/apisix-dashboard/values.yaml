@@ -80,7 +80,7 @@ config:
 
 service:
   type: NodePort
-  port: 80
+  port: 8088
 
 ingress:
   enabled: false
