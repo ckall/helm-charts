@@ -79,8 +79,8 @@ config:
         password: cheng
 
 service:
-  type: NodePort
-  port: 8088
+  type: ClusterIP
+  port: 80
 
 ingress:
   enabled: false
