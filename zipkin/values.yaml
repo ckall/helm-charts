@@ -128,7 +128,7 @@ persistentVolume:   # 是否存储持久化
   ##   set, choosing the default provisioner.  (gp2 on AWS, azure-disk on
   ##   Azure, standard on GKE, AWS & OpenStack)
   ##
-  storageClass: "nfs-client"  # 可选，ceph-rbd（默认）和cephfs（可多pod共享存储）
+  storageClass: "nfs"  # 可选，ceph-rbd（默认）和cephfs（可多pod共享存储）
   accessMode: ReadWriteOnce
   annotations: {}
   size: 1Gi  # 大小

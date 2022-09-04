@@ -213,7 +213,7 @@ extraContainerVolumes: []
 persistence:
   type: pvc
   enabled: false
-  storageClassName: nfs-client
+  storageClassName: nfs
   accessModes:
     - ReadWriteOnce
   size: 10Gi

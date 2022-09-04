@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-{{ template "nfs-client-provisioner.fullname" . }}
+  name: pvc-{{ template "nfs-provisioner.fullname" . }}
 spec:
   accessModes:
     - {{ .Values.storageClass.accessModes }}
@@ -10,7 +10,7 @@ spec:
   storageClassName: {{ .Values.storageClass.name }}
   selector:
     matchLabels:
-      nfs-client-provisioner: {{ template "nfs-client-provisioner.fullname" . }}
+      nfs-provisioner: {{ template "nfs-provisioner.fullname" . }}
   resources:
     requests:
       storage: 10Mi

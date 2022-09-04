@@ -644,7 +644,7 @@ disasterRecovery:
     size: 2Gi
     ## @param disasterRecovery.pvc.storageClassName Storage Class for snapshots volume
     ##
-    storageClassName: nfs-client
+    storageClassName: nfs
 
 ## @section Service account parameters
 

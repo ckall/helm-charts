@@ -10,7 +10,7 @@ pvc:
   resources:
     requests:
       storage: "5Gi"
-  storageClassName: "nfs-client"
+  storageClassName: "nfs"
 
 image:
   repository: mysql

@@ -165,7 +165,7 @@ ldap:
 persistence:
   enabled: true
   mountPath: /var/lib/postgresql
-  storageClassName: "nfs-client"
+  storageClassName: "nfs"
   subPath: ""
   accessModes:  [ReadWriteOnce]
   ## Storage Capacity for persistent volume
